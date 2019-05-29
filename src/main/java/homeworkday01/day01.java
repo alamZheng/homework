@@ -1,6 +1,7 @@
 package homeworkday01;
 
 import javax.jws.soap.SOAPBinding;
+import java.util.Random;
 
 public class day01 {
     /*1.使用BigDecimal写一个计算器,实现加减乘除,考虑可能是很大的数值计算场景
@@ -98,9 +99,57 @@ public class day01 {
     }
     /*
     6.基于startWith,实现可忽略大小写的实现,即,abc_和ABC_皆可以*/
+    public static boolean homework06(String prefix,String str){
+        int preLen = prefix.length();
+        char[] prechar=prefix.toCharArray();
+        char[] strchar=str.toCharArray();
+        for (int i = 0; i < preLen; i++) {
+            if(!String.valueOf(prechar[i]).toUpperCase().equals(String.valueOf(strchar[i]).toUpperCase())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void TestHomework06(){
+        System.out.println("----TestHomework06-----");
+        System.out.println(homework06("abc_","abc_1234"));
+        System.out.println(homework06("abc_","ABC_1231"));
+        System.out.println(homework06("abc_","aBc_1231"));
+        System.out.println(homework06("abc_","aBcd_1231"));
+        System.out.println(homework06("ABC_","ABC_5645"));
+        System.out.println(homework06("ABC_","abc_345345"));
+        System.out.println(homework06("ABC_","aBc_1231"));
+        System.out.println(homework06("ABC_","aBsc_1231"));
+    }
     /*
     7.基于endWith,实现可忽略大小写的实现,即,_abc和_ABC皆可以
     */
+    public static boolean homework07(String endfix,String str){
+        int endLen = endfix.length();
+        int strLen = str.length();
+        int subLen = strLen-endLen;
+        char[] endchar=endfix.toCharArray();
+        char[] strchar=str.toCharArray();
+        for (int i = (endLen-1); i >-1; i--) {
+            if(!String.valueOf(endchar[i]).toUpperCase().equals(String.valueOf(strchar[subLen+i]).toUpperCase())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void TestHomework07(){
+        System.out.println("----TestHomework07-----");
+        System.out.println(homework07("_abc","1234_abc"));
+        System.out.println(homework07("_abc","657657_ABC"));
+        System.out.println(homework07("_abc","67868_aBc"));
+        System.out.println(homework07("_abc","446456_aBcd"));
+        System.out.println(homework07("_ABC","3345_ABC"));
+        System.out.println(homework07("_ABC","123123_abc"));
+        System.out.println(homework07("_ABC","234234_aBc"));
+        System.out.println(homework07("_ABC","45646_aBsc"));
+    }
     /*
     8.实现toTitle()转化,即 "hello"输入"Hello"*/
     public static String homework08(String str1){
@@ -134,7 +183,11 @@ public class day01 {
     /*
     9.练习数组的定义,赋值和初始化,使用int型即可*/
     public static int[] homework09() {
-        int[] ints1=new int[]{1,2,3,4};
+        Random ran1=new Random();
+        int[] ints1=new int[10];
+        for (int i = 0; i <10 ; i++) {
+            ints1[i]=ran1.nextInt(100);
+        }
         return ints1;
     }
     public static void TestHomework09(){
@@ -142,8 +195,9 @@ public class day01 {
         int[] insts =homework09();
         for (int i:insts){
             System.out.print(i);
+            System.out.print(",");
         }
-        System.out.println("----end TestHomework09-----");
+        System.out.println("");
     }
     /*
     10.基于9中定义的数组,实现数组内容的基本排序,冒泡
@@ -152,7 +206,7 @@ public class day01 {
     11.基于9中定义的数组,实现数组内容的二分查找,查找给定元素
     */
     /*
-    12.实现一个水仙花数,要去输入2个参数,第一个参数是层级数,比如5,第二个打印的字符类型,若类型是"a"则打印"*"类型是b,打印"#"
+    12.实现一个水仙花数,要求输入2个参数,第一个参数是层级数,比如5,第二个打印的字符类型,若类型是"a"则打印"*"类型是b,打印"#"
     */
     /*13基于面向对象的预习,定义一个类User,要去具备:
     --a 有私有的属性
@@ -203,6 +257,8 @@ public class day01 {
         TestHomework03();
         TestHomework04();
         TestHomework05();
+        TestHomework06();
+        TestHomework07();
         TestHomework08();
         TestHomework09();
         TestHomework13();
