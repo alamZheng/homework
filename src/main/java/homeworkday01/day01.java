@@ -16,7 +16,7 @@ public class day01 {
     /*
     3.时间字符串左空格trim,例如字符串"   abc    def",输出"abc    def"
     */
-    public static String homework03(String str) {
+    private static String homework03(String str) {
         int len = str.length();
         int st = 0;
         char[] val = str.toCharArray();
@@ -32,7 +32,7 @@ public class day01 {
         newstr =str.substring(st);
         return newstr;
     }
-    public static void TestHomework03(){
+    private static void TestHomework03(){
         System.out.println("----TestHomework03-----");
         String newstr = homework03("   abc    def    ");
         System.out.println(newstr);
@@ -42,7 +42,7 @@ public class day01 {
     /*
     4.时间字符串左空格trim,例如字符串"   abc    ",输出"   abc"
     */
-    public static String homework04(String str) {
+    private static String homework04(String str) {
         int len = str.length();
         int st = len;
         char[] val = str.toCharArray();
@@ -58,7 +58,7 @@ public class day01 {
         newstr =str.substring(0,st);
         return newstr;
     }
-    public static void TestHomework04(){
+    private static void TestHomework04(){
         System.out.println("----TestHomework04-----");
         String newstr = homework04("   abc    def     ");
         System.out.println(newstr);
@@ -68,7 +68,7 @@ public class day01 {
     /*
     5.实现字符串左右指定字符的trim,例如,字符串"***abc***",输出"abc",干掉"*"
     */
-    public static String homework05(String str) {
+    private static String homework05(String str) {
         int len = str.length();
         int st = 0;
         int et = len;
@@ -92,26 +92,41 @@ public class day01 {
         newstr =str.substring(st,et);
         return newstr;
     }
-    public static void TestHomework05(){
+    private static void TestHomework05(){
         System.out.println("----TestHomework05-----");
         String newstr = homework05("***abc***");
         System.out.println(newstr);
     }
     /*
     6.基于startWith,实现可忽略大小写的实现,即,abc_和ABC_皆可以*/
-    public static boolean homework06(String prefix,String str){
+    private static boolean homework06(String prefix,String str){
         int preLen = prefix.length();
         char[] prechar=prefix.toCharArray();
         char[] strchar=str.toCharArray();
         for (int i = 0; i < preLen; i++) {
-            if(!String.valueOf(prechar[i]).toUpperCase().equals(String.valueOf(strchar[i]).toUpperCase())) {
+//            if(!String.valueOf(prechar[i]).toUpperCase().equals(String.valueOf(strchar[i]).toUpperCase())) {
+//                return false;
+//            }
+            /*A-Z 65-90
+             *a-z 97-122 */
+            if(prechar[i]>64&&prechar[i]<91){
+                prechar[i]+=32;
+//                System.out.println(prechar[i]);
+            }
+            if(strchar[i]>64&&strchar[i]<91){
+                strchar[i]+=32;
+//                System.out.println(strchar[i]);
+            }
+            if (prechar[i]!=strchar[i]){
+//                System.out.println(prechar[i]);
+//                System.out.println(strchar[i]);
                 return false;
             }
         }
         return true;
     }
 
-    public static void TestHomework06(){
+    private static void TestHomework06(){
         System.out.println("----TestHomework06-----");
         System.out.println(homework06("abc_","abc_1234"));
         System.out.println(homework06("abc_","ABC_1231"));
@@ -125,7 +140,7 @@ public class day01 {
     /*
     7.基于endWith,实现可忽略大小写的实现,即,_abc和_ABC皆可以
     */
-    public static boolean homework07(String endfix,String str){
+    private static boolean homework07(String endfix,String str){
         int endLen = endfix.length();
         int strLen = str.length();
         int subLen = strLen-endLen;
@@ -139,7 +154,7 @@ public class day01 {
         return true;
     }
 
-    public static void TestHomework07(){
+    private static void TestHomework07(){
         System.out.println("----TestHomework07-----");
         System.out.println(homework07("_abc","1234_abc"));
         System.out.println(homework07("_abc","657657_ABC"));
@@ -152,7 +167,7 @@ public class day01 {
     }
     /*
     8.实现toTitle()转化,即 "hello"输入"Hello"*/
-    public static String homework08(String str1){
+    private static String homework08(String str1){
 
         char[] arrs = str1.toCharArray(); // Display the contents of the char array.
         int arrsLen=arrs.length;
@@ -172,7 +187,7 @@ public class day01 {
         return NewStr;
     }
 
-    public static void TestHomework08(){
+    private static void TestHomework08(){
         System.out.println("----TestHomework08-----");
         String str = homework08("hello");
         System.out.println(str);
@@ -182,7 +197,7 @@ public class day01 {
 
     /*
     9.练习数组的定义,赋值和初始化,使用int型即可*/
-    public static int[] homework09() {
+    private static int[] homework09() {
         Random ran1=new Random();
         int[] ints1=new int[10];
         for (int i = 0; i <10 ; i++) {
@@ -190,18 +205,59 @@ public class day01 {
         }
         return ints1;
     }
-    public static void TestHomework09(){
+    private static void TestHomework09(){
         System.out.println("----TestHomework09-----");
         int[] insts =homework09();
         for (int i:insts){
             System.out.print(i);
             System.out.print(",");
         }
-        System.out.println("");
+        System.out.println();
     }
     /*
     10.基于9中定义的数组,实现数组内容的基本排序,冒泡
     */
+    private static int[] homework10() {
+        int[] insts =homework09();
+        for (int i:insts){
+            System.out.print(i);
+            System.out.print(",");
+        }
+        System.out.println();
+        //10
+        int intsLen=insts.length;
+        int[] newInsts=new int[intsLen];
+//        System.out.println(max);
+        //9-0
+        for (int i = (intsLen-1); i >-1; i--) {
+//            System.out.println(i);
+            for (int j = 0; j <i ; j++) {
+                if(insts[j]>insts[j+1]){
+                    int tmp=insts[j];
+                    insts[j]=insts[j+1];
+                    insts[j+1]=tmp;
+                }
+            }
+//            System.out.println();
+//            for (int ni:insts){
+//                System.out.print(ni);
+//                System.out.print(",");
+//            }
+//            System.out.println();
+        }
+
+        return insts;
+    }
+    private static void TestHomework10(){
+        System.out.println("----TestHomework10-----");
+        int[] newInsts =homework10();
+//        newInsts=homework10();
+        for (int i:newInsts){
+            System.out.print(i);
+            System.out.print(",");
+        }
+        System.out.println();
+    }
     /*
     11.基于9中定义的数组,实现数组内容的二分查找,查找给定元素
     */
@@ -222,12 +278,12 @@ public class day01 {
             name="alam";
             age=33;
         }
-        public User(String name, int age) {
+        private User(String name, int age) {
             this.name = name;
             this.age = age;
         }
 
-        public String getName() {
+        private String getName() {
             return name;
         }
 
@@ -246,7 +302,7 @@ public class day01 {
         private String name;
         public int age;
     }
-    public static void TestHomework13(){
+    private static void TestHomework13(){
         System.out.println("----定义一个类User----");
         User alam= new User("adam",22);
         System.out.println(alam.getName());
@@ -261,6 +317,7 @@ public class day01 {
         TestHomework07();
         TestHomework08();
         TestHomework09();
+        TestHomework10();
         TestHomework13();
 
     }
