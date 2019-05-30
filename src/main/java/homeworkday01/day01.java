@@ -1,6 +1,7 @@
 package homeworkday01;
 
 import javax.jws.soap.SOAPBinding;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class day01 {
@@ -52,8 +53,8 @@ public class day01 {
             if(val[i]==' '){
 //                System.out.println(val[i]);
                 st--;
-            }else
-                break;
+            }else{
+                break;}
         }
         newstr =str.substring(0,st);
         return newstr;
@@ -79,15 +80,15 @@ public class day01 {
             if(val[i]=='*'){
 //                System.out.println(val[i]);
                 st++;
-            }else
-                break;
+            }else{
+                break;}
         }
         for (int i = (len-1); i>-1; i--) {
             if(val[i]=='*'){
 //                System.out.println(val[i]);
                 et--;
-            }else
-                break;
+            }else{
+                break;}
         }
         newstr =str.substring(st,et);
         return newstr;
@@ -226,7 +227,7 @@ public class day01 {
         System.out.println();
         //10
         int intsLen=insts.length;
-        int[] newInsts=new int[intsLen];
+//        int[] newInsts=new int[intsLen];
 //        System.out.println(max);
         //9-0
         for (int i = (intsLen-1); i >-1; i--) {
@@ -300,8 +301,46 @@ public class day01 {
         System.out.println(findIndex2);
     }
     /*
-    12.实现一个水仙花数,要求输入2个参数,第一个参数是层级数,比如5,第二个打印的字符类型,若类型是"a"则打印"*"类型是b,打印"#"
+    12.实现一个水仙花数,要求输入2个参数,第一个参数是层级数,比如5,
+    第二个打印的字符类型,若类型是"a"则打印"*"类型是b,打印"#"
     */
+    private static ArrayList homework12(int pows,String str) {
+        ArrayList al=new ArrayList();
+        //求10到10000之间所有的素数，一个大的循环
+        for (int number = 100; number <= Math.pow(10, pows); number++) {
+            //这步代码是为了让Getlength(number)不变
+            int temp = number;
+            int sum = 0;
+            for (int i = 0; i < Getlength(number); i++) {
+                //次方和相加
+                sum += Math.pow(temp % 10, Getlength(number));
+                temp = temp / 10;
+            }//判断是否相等
+            if (sum == number) {
+//                System.out.print(number + " ");
+                al.add(number);
+            }
+
+        }return al;
+    }
+    private static int Getlength(int number){ //这个函数是为了求一个数字的位数
+        int i = 0;
+        while (number / 10 > 0) {
+            i++;
+            number /= 10;
+        }
+        return i + 1;
+    }
+
+    private static void TestHomework12(){
+        System.out.println("----TestHomework12-----");
+        ArrayList result =homework12(5,"a");
+        for (int i = 0; i <result.size() ; i++) {
+            System.out.print(result.get(i)+ " ");
+        }
+        System.out.println();
+
+    }
     /*13基于面向对象的预习,定义一个类User,要去具备:
     --a 有私有的属性
     --b 有公共的属性
@@ -357,6 +396,7 @@ public class day01 {
         TestHomework09();
         TestHomework10();
         TestHomework11();
+        TestHomework12();
         TestHomework13();
 
     }
