@@ -1,20 +1,90 @@
 package homeworkday01;
 
 import javax.jws.soap.SOAPBinding;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class day01 {
-    /*1.使用BigDecimal写一个计算器,实现加减乘除,考虑可能是很大的数值计算场景
+    /**1.使用BigDecimal写一个计算器,实现加减乘除,考虑可能是很大的数值计算场景
 
         * */
-    public void homework01(){
-
+    private static String homework01(String str,String str1,String str2)  {
+        BigDecimal result;
+        if (str1.length()==0||str2.length()==0||str.length()==0) {
+            return "输入的字符不能为空！";
+        }
+        try {
+            BigDecimal bd1=new BigDecimal(str1);
+            BigDecimal bd2=new BigDecimal(str2);
+            if("+".equals(str)){
+                result=bd1.add(bd2);
+            }
+            else if("-".equals(str)){
+                result=bd1.subtract(bd2);
+            }
+            else if("*".equals(str)){
+                result=bd1.multiply(bd2);
+            }
+            else if("/".equals(str)){
+                result=bd1.divide(bd2);
+            }
+            else{return "please enter +/-/*/'/'";}
+        }catch(NumberFormatException e){
+//            throw new Exception("输入的字符串必须能够转化成数字！", e);
+            return "输入的字符串必须能够转化成数字！";
+        }
+        return String.valueOf(result);
     }
-    /*2.基于1的时间,进行一个包装,是的输入double型和string型都可以兼任
-    */
+    private static void TestHomework01()throws Exception{
+        System.out.println("----TestHomework01-----");
+        System.out.println(homework01("+","1.1","2.2"));
+        System.out.println(homework01("+","1.1","-2.2"));
+        System.out.println(homework01("+","1.1","2-2"));
+        System.out.println(homework01("+","1.1","2 2"));
+        System.out.println(homework01("+",".1.1","22"));
+        System.out.println(homework01("+",".11","22"));
+        System.out.println(homework01("+","111111111111111111111111111111111111111111111111111111"
+                ,"2222222222222222222222222222222222222222222222222222222222"));
+        System.out.println(homework01("+","111111111111111.111111111111111111111111111111111111111"
+                ,"22222222222222222222222222222222.22222222222222222222222222"));
+        System.out.println(homework01("-","1.1","2.2"));
+        System.out.println(homework01("*","1.1","2.2"));
+        System.out.println(homework01("/","1.1","2.2"));
+        System.out.println(homework01("&","1.1","2.2"));
+        System.out.println(homework01("/","asd","2.2"));
+        System.out.println(homework01("/","1.1","asd"));
+        System.out.println(homework01("","1.1","asd"));
+        System.out.println(homework01("/","","asd"));
+        System.out.println(homework01("/","1.1",""));
+    }
 
-    /*
+    /**2.基于1的时间,进行一个包装,是的输入double型和string型都可以兼任
+    */
+//    private static String homework02(String str) {
+//        int len = str.length();
+//        int st = 0;
+//        char[] val = str.toCharArray();
+//        String newstr="";
+//
+//        for (int i = 0; i < len; i++) {
+//            if(val[i]==' '){
+////                System.out.println(val[i]);
+//                ++st;
+//            }else
+//                break;
+//        }
+//        newstr =str.substring(st);
+//        return newstr;
+//    }
+//    private static void TestHomework02(){
+//        System.out.println("----TestHomework03-----");
+//        String newstr = homework03("   abc    def    ");
+//        System.out.println(newstr);
+//        String newstr1 = homework03("abc    def    ");
+//        System.out.println(newstr1);
+//    }
+    /**
     3.时间字符串左空格trim,例如字符串"   abc    def",输出"abc    def"
     */
     private static String homework03(String str) {
@@ -40,7 +110,7 @@ public class day01 {
         String newstr1 = homework03("abc    def    ");
         System.out.println(newstr1);
     }
-    /*
+    /**
     4.时间字符串左空格trim,例如字符串"   abc    ",输出"   abc"
     */
     private static String homework04(String str) {
@@ -51,7 +121,6 @@ public class day01 {
 
         for (int i = (len-1); i>-1; i--) {
             if(val[i]==' '){
-//                System.out.println(val[i]);
                 st--;
             }else{
                 break;}
@@ -66,7 +135,7 @@ public class day01 {
         String newstr1 = homework04("   abc    def");
         System.out.println(newstr1);
     }
-    /*
+    /**
     5.实现字符串左右指定字符的trim,例如,字符串"***abc***",输出"abc",干掉"*"
     */
     private static String homework05(String str) {
@@ -98,7 +167,7 @@ public class day01 {
         String newstr = homework05("***abc***");
         System.out.println(newstr);
     }
-    /*
+    /**
     6.基于startWith,实现可忽略大小写的实现,即,abc_和ABC_皆可以*/
     private static boolean homework06(String prefix,String str){
         int preLen = prefix.length();
@@ -138,7 +207,7 @@ public class day01 {
         System.out.println(homework06("ABC_","aBc_1231"));
         System.out.println(homework06("ABC_","aBsc_1231"));
     }
-    /*
+    /**
     7.基于endWith,实现可忽略大小写的实现,即,_abc和_ABC皆可以
     */
     private static boolean homework07(String endfix,String str){
@@ -166,11 +235,11 @@ public class day01 {
         System.out.println(homework07("_ABC","234234_aBc"));
         System.out.println(homework07("_ABC","45646_aBsc"));
     }
-    /*
+    /**
     8.实现toTitle()转化,即 "hello"输入"Hello"*/
     private static String homework08(String str1){
 
-        char[] arrs = str1.toCharArray(); // Display the contents of the char array.
+        char[] arrs = str1.toCharArray();
         int arrsLen=arrs.length;
         char[] NewArrs =new char[arrsLen];
         String NewStr="";
@@ -196,8 +265,8 @@ public class day01 {
         System.out.println(str1);
     }
 
-    /*
-    9.练习数组的定义,赋值和初始化,使用int型即可*/
+    /**
+     * 9.练习数组的定义,赋值和初始化,使用int型即可*/
     private static int[] homework09() {
         Random ran1=new Random();
         int[] ints1=new int[10];
@@ -215,7 +284,7 @@ public class day01 {
         }
         System.out.println();
     }
-    /*
+    /**
     10.基于9中定义的数组,实现数组内容的基本排序,冒泡
     */
     private static int[] homework10() {
@@ -231,7 +300,6 @@ public class day01 {
 //        System.out.println(max);
         //9-0
         for (int i = (intsLen-1); i >-1; i--) {
-//            System.out.println(i);
             for (int j = 0; j <i ; j++) {
                 if(insts[j]>insts[j+1]){
                     int tmp=insts[j];
@@ -239,12 +307,6 @@ public class day01 {
                     insts[j+1]=tmp;
                 }
             }
-//            System.out.println();
-//            for (int ni:insts){
-//                System.out.print(ni);
-//                System.out.print(",");
-//            }
-//            System.out.println();
         }
 
         return insts;
@@ -259,7 +321,7 @@ public class day01 {
         }
         System.out.println();
     }
-    /*
+    /**
     11.基于9中定义的数组,实现数组内容的二分查找,查找给定元素
     */
     private static int homework11(int findInt) {
@@ -300,7 +362,7 @@ public class day01 {
         int findIndex2 =homework11(174);
         System.out.println(findIndex2);
     }
-    /*
+    /**
     12.实现一个水仙花数,要求输入2个参数,第一个参数是层级数,比如5,
     第二个打印的字符类型,若类型是"a"则打印"*"类型是b,打印"#"
     */
@@ -317,7 +379,6 @@ public class day01 {
                 temp = temp / 10;
             }//判断是否相等
             if (sum == number) {
-//                System.out.print(number + " ");
                 al.add(number);
             }
 
@@ -341,15 +402,16 @@ public class day01 {
         System.out.println();
 
     }
-    /*13基于面向对象的预习,定义一个类User,要去具备:
-    --a 有私有的属性
-    --b 有公共的属性
-    有默认构造方法
-    有重载1个和2个参数的构造方法
-    有方法,只需实现获取属性值
-    有类属性 静态域
-    有类方法 静态方法
-    对user对象实例化,并调用其方法,获取属性值*/
+    /**
+     * 13基于面向对象的预习,定义一个类User,要去具备:
+     * --a 有私有的属性
+     * --b 有公共的属性
+     * 有默认构造方法
+     * 有重载1个和2个参数的构造方法
+     * 有方法,只需实现获取属性值
+     * 有类属性 静态域
+     * 有类方法 静态方法
+     * 对user对象实例化,并调用其方法,获取属性值*/
     public static class User {
         User(){
             name="alam";
@@ -386,7 +448,9 @@ public class day01 {
         User alam1= new User();
         System.out.println(alam1.getName());
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        TestHomework01();
+//        TestHomework02();
         TestHomework03();
         TestHomework04();
         TestHomework05();
