@@ -261,6 +261,44 @@ public class day01 {
     /*
     11.基于9中定义的数组,实现数组内容的二分查找,查找给定元素
     */
+    private static int homework11(int findInt) {
+//        int[] insts =homework10();
+        int[] insts ={4,6,38,48,49,50,70,73,74,93};
+        for (int i:insts){
+            System.out.print(i);
+            System.out.print(",");
+        }
+        System.out.println();
+        //10
+        int intsLen=insts.length;
+        int left=0;
+        int right=intsLen-1;
+        int mid=intsLen/2;
+        int findIndex=-1;
+        while(right>left+1){
+            if(findInt>insts[mid]){
+                left=mid;
+                mid=(right+left)/2;
+            }else if(findInt<insts[mid]){
+                right=mid;
+                mid=(right+left)/2;
+            }else {
+                findIndex=mid;
+                break;
+            }
+        }
+
+        return findIndex;
+    }
+    private static void TestHomework11(){
+        System.out.println("----TestHomework11-----");
+        int findIndex =homework11(74);
+        System.out.println(findIndex);
+        int findIndex1 =homework11(48);
+        System.out.println(findIndex1);
+        int findIndex2 =homework11(174);
+        System.out.println(findIndex2);
+    }
     /*
     12.实现一个水仙花数,要求输入2个参数,第一个参数是层级数,比如5,第二个打印的字符类型,若类型是"a"则打印"*"类型是b,打印"#"
     */
@@ -318,6 +356,7 @@ public class day01 {
         TestHomework08();
         TestHomework09();
         TestHomework10();
+        TestHomework11();
         TestHomework13();
 
     }
